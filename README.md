@@ -7,8 +7,11 @@ Note that this does not include any Chip-8 ROMs. These can be had from : http://
 Keys are :
 
 1, 2, 3, 4
+
 q, w, e, r
+
 a, s, d, f
+
 z, x, c, v
 
 You'll have to work out which is which per game. Generally '2' and 'w' are 'fire' and either side of that are directional input.
