@@ -196,7 +196,7 @@ namespace Chip8.Core
         /// <summary>
         /// SE Vx, kk : 0x5XY0, 0x3XKK
         /// 
-        /// Skip next instruction if Vx is equal to Vy
+        /// Skip next instruction if Vx is equal to kk
         /// </summary>
         /// <param name="ax">Ax.</param>
         /// <param name="ay">Ay.</param>
@@ -251,10 +251,10 @@ namespace Chip8.Core
         /// Sets Vf to LSB
         /// </summary>
         /// <param name="vx">Vx.</param>
-        void SHR(byte vx)
+        void SHR(byte ax)
         {
-            _v[0xf] = (byte)(_v[vx] & 0x1);//(byte)(((_v[vx] & 0x1) == 1) ? 1 : 0);
-            _v[vx] /= 2;
+            _v[0xf] = (byte)(_v[ax] & 0x1);
+            _v[ax] /= 2;
         }
 
         /// <summary>
@@ -282,14 +282,14 @@ namespace Chip8.Core
         /// <param name="ax">Ax.</param>
         void SHL(byte ax)
         {
-            _v[0xf] = (byte)(_v[ax] >> 7);//(((_v[ax] >> 7) == 1) ? 1 : 0);
+            _v[0xf] = (byte)(_v[ax] >> 7);
             _v[ax] *= 2;
         }
 
         /// <summary>
         /// SNE Vx, kk : 0x9XY0
         /// 
-        /// Skips next instruction if Vx does not equal Vy
+        /// Skips next instruction if Vx does not equal kk
         /// </summary>
         /// <param name="ax">Ax.</param>
         /// <param name="ay">Ay.</param>
