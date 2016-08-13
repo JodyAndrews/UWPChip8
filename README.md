@@ -4,7 +4,16 @@ Working Chip-8 interpreter / emulator running under the Universal Windows Platfo
 
 Note that this does not include any Chip-8 ROMs. These can be had from : http://www.zophar.net/pdroms/chip8.html
 
-Demonstrates the CanvasAnimatedControl update cycle and drawing pixels as rectangles with DrawRectangle as well as picking files with FileOpenPicker. This does not demonstrate rendering to a bitmap however I may add this later; due to the low resolution output from the 'CPU' this does not tend to yield great results when scaled.
+Keys are :
+
+1, 2, 3, 4
+q, w, e, r
+a, s, d, f
+z, x, c, v
+
+You'll have to work out which is which per game. Generally '2' and 'w' are 'fire' and either side of that are directional input.
+
+This project demonstrates the CanvasAnimatedControl update cycle and drawing pixels as rectangles with DrawRectangle as well as picking files with FileOpenPicker.
 
 Pull requests are always welcome.
 
