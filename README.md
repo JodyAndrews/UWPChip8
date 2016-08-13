@@ -13,3 +13,5 @@ Credits :
 CowGod's Technical Reference that this was based on : http://devernay.free.fr/hacks/chip8/C8TECH10.HTM
 
 Alexander's superb JS Chip-8 Emulator : https://github.com/alexanderdickson/Chip-8-Emulator
+
+![Alt text](/Images/ibm.png?raw=true "IBM")
