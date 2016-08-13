@@ -27,6 +27,8 @@ You'll have to work out which is which per game. Generally '2' and 'w' are 'fire
 
 #### Credits
 
+Joseph Weisbecker
+
 CowGod's Technical Reference that this was based on : http://devernay.free.fr/hacks/chip8/C8TECH10.HTM
 
 Alexander's superb JS Chip-8 Emulator : https://github.com/alexanderdickson/Chip-8-Emulator
