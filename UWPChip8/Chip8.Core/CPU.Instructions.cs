@@ -146,7 +146,7 @@ namespace Chip8.Core
                         case 0x0065: // LD Vx, [I]
                             for (byte i = 0; i <= _opcode.X; i++)
                             {
-                                _v[i] = _memory[I.GetValue() + i];
+                                LD(i, _memory[I.GetValue() + 1]);
                             }
                             break;
                     }
