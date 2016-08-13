@@ -16,5 +16,6 @@
                                           Update="CanvasAnimatedControl_Update"
                                           CreateResources="CanvasAnimatedControl_CreateResources" Width="640" Height="320" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                           />
+        <Button x:Name="chooseROMButton" Content="Choose ROM"/>
     </Grid>
 </Page>

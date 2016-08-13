@@ -43,21 +43,26 @@ namespace UWPChip8
             get { return _cpu.DisplayBuffer; }
         }
 
+        /// <summary>
+        /// Easy reference to the CPU's Powered Up state
+        /// </summary>
+        public bool PoweredUp
+        {
+            get { return _cpu.PoweredUp; }
+        }
+
         #endregion
 
         #region Methods
 
         /// <summary>
         /// Loads a file from the file system asynchronously and powers up our CPU. Note that theoretically we should probably do the powerup via a separate call
-        /// but still.
+        /// but still, there's theory and then there's just getting the job done.
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public async Task LoadRom(string filename)
+        public async Task LoadRom(StorageFile file)
         {
-            StorageFolder storageFolder = await KnownFolders.GetFolderForUserAsync(null, KnownFolderId.PicturesLibrary);
-            StorageFile file = await storageFolder.TryGetItemAsync("INVADERS") as StorageFile;
-
             byte[] fileBytes = null;
             using (IRandomAccessStreamWithContentType stream = await file.OpenReadAsync())
             {
@@ -71,6 +76,14 @@ namespace UWPChip8
 
             Cart cart = new Cart(fileBytes);
             _cpu.PowerUp(cart);
+        }
+
+        /// <summary>
+        /// Handles initialization and re-initialization of the CPU's state
+        /// </summary>
+        public void Initialize()
+        {
+            _cpu.Initialize();
         }
 
         /// <summary>

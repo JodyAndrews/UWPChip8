@@ -17,9 +17,10 @@ namespace Chip8.Core
         byte[] _v;
         OpCode _opcode = new OpCode();
         Random _rnd = new Random();
-        bool[] _displayBuffer = new bool[Config.ScreenWidth * Config.ScreenHeight];
+        bool[] _displayBuffer;
         int[] keys = new int[16];
         bool _halted = false;
+        bool _poweredUp = false;
 
         #endregion
 
@@ -27,7 +28,6 @@ namespace Chip8.Core
 
         public CPU()
         {
-            Initialize();
         }
 
         #endregion
@@ -38,15 +38,35 @@ namespace Chip8.Core
 
         public bool DrawFlag { get; set; } = false;
 
+        public bool PoweredUp { get { return _poweredUp; } }
+
         public void Initialize()
         {
+            // Resets registers
             _v = new byte[16];
-            _memory = new byte[4 * 1024];
-            _pc = 0x200;
-            DelayTimer.Set(0);
+            I.Set(0);
 
+            // Allocates memory
+            _memory = new byte[4 * 1024];
+
+            // Resets the display buffer
+            _displayBuffer = new bool[Config.ScreenWidth * Config.ScreenHeight];
+
+            // Set our program counter to the start
+            _pc = 0x200;
+
+            // Resets the timers
+            DelayTimer.Set(0);
+            SoundTimer.Set(0);
+
+            // Reset our key states
             for (int i = 0; i < keys.Length; i++)
                 keys[i] = 0;
+
+            // Power state is handled once the ROM is loaded. We can theoretically initialize the CPU without powering
+            // up the rom so we can use this method to re-initialize if necessary.
+            _poweredUp = false;
+            _halted = true;
         }
 
         #endregion
@@ -79,11 +99,9 @@ namespace Chip8.Core
 			};
 
             Array.Copy(hexChars, 0, _memory, 0x0, hexChars.Length);
-        }
 
-        public void EndExecution()
-        {
-            Initialize();
+            _poweredUp = true;
+            _halted = false;
         }
 
         public void SetKey(int index, int val)

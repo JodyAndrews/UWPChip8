@@ -26,6 +26,9 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.ViewManagement;
 using Windows.UI.Core;
 using Windows.System;
+using Windows.Storage.Pickers;
+using Windows.Storage;
+using System.Diagnostics;
 
 namespace UWPChip8
 {
@@ -74,6 +77,7 @@ namespace UWPChip8
             // Register for keyboard events
             Window.Current.CoreWindow.KeyDown += KeyDown_UIThread;
             Window.Current.CoreWindow.KeyUp += KeyUp_UIThread;
+            chooseROMButton.Click += new RoutedEventHandler(ChooseROM_Click);
         }
 
         /// <summary>
@@ -166,6 +170,9 @@ namespace UWPChip8
         /// <param name="args"></param>
         private void CanvasAnimatedControl_Update(Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedUpdateEventArgs args)
         {
+            if (!_emulator.PoweredUp)
+                return;
+
             _emulator.ExecuteIteration();
         }
 
@@ -176,6 +183,9 @@ namespace UWPChip8
         /// <param name="args"></param>
         private void CanvasAnimatedControl_Draw(Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedDrawEventArgs args)
         {
+            if (!_emulator.PoweredUp)
+                return;
+
             bool[] displayBuffer = _emulator.DisplayBuffer;
             for (int y = 0; y < 32; y++)
             {
@@ -211,12 +221,35 @@ namespace UWPChip8
         /// <returns></returns>
         async Task CreateResources(Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl sender)
         {
-            await _emulator.LoadRom("/Assets/INVADERS");
-
             _darkBrush = new CanvasImageBrush(sender);
             _darkBrush.Image = await CanvasBitmap.LoadAsync(sender, "Assets/dark_brush.jpg");
             _brush = new CanvasImageBrush(sender);
             _brush.Image = await CanvasBitmap.LoadAsync(sender, "Assets/brush.jpg");
+        }
+
+        /// <summary>
+        /// Handles the file picker event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void ChooseROM_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.ViewMode = PickerViewMode.Thumbnail;
+            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            openPicker.FileTypeFilter.Add("*");
+            StorageFile file = await openPicker.PickSingleFileAsync();
+            if (file != null)
+            {
+                _emulator.Initialize();
+                await _emulator.LoadRom(file);
+                
+                Debug.WriteLine(file.Path);
+            }
+            else
+            {
+                Debug.WriteLine("Cancelled");
+            }
         }
     }
 }
