@@ -15,16 +15,11 @@ namespace Chip8.Core
                 case 0x0000:
                     switch (_opcode.Value)
                     {
-                        case 0x00E0:
-
-                            for (int i = 0; i < _displayBuffer.Length; i++)
-                            {
-                                _displayBuffer[i] = false;
-                            }
-                            DrawFlag = true;
+                        case 0x00E0: // CLS
+                            CLS();
                             break;
-                        case 0x00EE:
-                            _pc = _stack[--_sp];
+                        case 0x00EE: // RET
+                            RET();
                             break;
                     }
                     break;
@@ -157,6 +152,26 @@ namespace Chip8.Core
                     }
                 break;
             }
+        }
+
+        /// <summary>
+        /// Clears the display buffer
+        /// </summary>
+        void CLS()
+        {
+            for (int i = 0; i < _displayBuffer.Length; i++)
+            {
+                _displayBuffer[i] = false;
+            }
+            DrawFlag = true;
+        }
+
+        /// <summary>
+        /// Return from a subroutine
+        /// </summary>
+        void RET()
+        {
+            _pc = _stack[--_sp];
         }
 
         /// <summary>
