@@ -293,8 +293,8 @@ namespace Chip8.Core
         /// 
         /// Skips next instruction if Vx does not equal kk
         /// </summary>
-        /// <param name="ax">ax.</param>
-        /// <param name="kk">kk.</param>
+        /// <param name="ax">ax</param>
+        /// <param name="kk">kk</param>
         void SNE(byte ax, byte kk)
         {
             if (_v[ax] != kk)
@@ -330,7 +330,7 @@ namespace Chip8.Core
         /// 
         /// Bitwise exclusive OR on Vx and kk and store result in Vx
         /// </summary>
-        /// <param name="ax">ax.</param>
+        /// <param name="ax">ax</param>
         /// <param name="kk">kk</param>
         void XOR(byte ax, byte kk)
         {
@@ -364,8 +364,8 @@ namespace Chip8.Core
         /// <summary>
         /// Loads value kk into address ax
         /// </summary>
-        /// <param name="ax"></param>
-        /// <param name="kk"></param>
+        /// <param name="ax">ax</param>
+        /// <param name="kk">kk</param>
         void LD(byte ax, byte kk)
         {
             _v[ax] = kk;
@@ -444,7 +444,7 @@ namespace Chip8.Core
         /// <summary>
         /// Skips next instruction is key IS pressed
         /// </summary>
-        /// <param name="ax"></param>
+        /// <param name="ax">ax</param>
         void SKP(byte ax)
         {
             if (keys[ax] == 1)
@@ -454,7 +454,7 @@ namespace Chip8.Core
         /// <summary>
         /// Skips next instruction if key is NOT pressed
         /// </summary>
-        /// <param name="ax"></param>
+        /// <param name="ax">ax</param>
         void SKNP(byte ax)
         {
             if (this.keys[ax] != 1)
@@ -466,7 +466,7 @@ namespace Chip8.Core
         /// 
         /// This is a direct implementation of Alexander Dicksons BCD function
         /// </summary>
-        /// <param name="ax"></param>
+        /// <param name="ax">ax</param>
         void BCD(byte ax)
         {
             var number = _v[ax];
