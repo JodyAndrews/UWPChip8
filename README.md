@@ -33,4 +33,6 @@ CowGod's Technical Reference that this was based on : http://devernay.free.fr/ha
 
 Alexander's superb JS Chip-8 Emulator : https://github.com/alexanderdickson/Chip-8-Emulator
 
+David Winter : http://www.pong-story.com/chip8/
+
 ![Alt text](/Images/ibm.png?raw=true "IBM")
