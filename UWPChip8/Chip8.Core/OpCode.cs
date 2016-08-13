@@ -55,8 +55,12 @@ namespace Chip8.Core
 
         public override string ToString()
         {
-            //string.Format("0x{0:X}", _opcode.Value)
             return string.Format("[OpCode: Value=0x{0:X}, InstructionType={1}, X={2}, Y={3}, N={4}, NN={5}, NNN={6}]", Value, InstructionType, X, Y, N, NN, NNN);
+        }
+
+        public string ByteToBits()
+        {
+            return Convert.ToString(Value, 2).PadLeft(8, '0');
         }
     }
 }

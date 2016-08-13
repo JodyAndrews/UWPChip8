@@ -469,6 +469,17 @@ namespace Chip8.Core
         /// <param name="ax">ax</param>
         void BCD(byte ax)
         {
+            // This appears to be used primarily for scoreboards, seeking correction?
+
+            // Example Decimal Representation
+            // _v[ax] = decimal 10
+            // Results (3) = 10, 1, 0
+
+            // Therefore I = 10, I + 1 = 1, I + 2 = 0;
+
+            // Seems that in pong at least the values are stored at index 754. Incorrectly the scores
+            // are always equal to each other, ie. 4 - 4, when 4 points are scored on, at least,
+            // left hand side and no points on right hand side. Slight issue here :)
             var number = _v[ax];
 
             for (int i = 3; i > 0; i--)
