@@ -477,15 +477,5 @@ namespace Chip8.Core
                 number /= 10;
             }
         }
-
-        void LD_I_VX(byte ax)
-        {
-            int start = I.GetValue();
-
-            for (int i = 0; i < ax; i++)
-            {
-                _memory[start + i] = _v[ax + i];
-            }
-        }
     }
 }
