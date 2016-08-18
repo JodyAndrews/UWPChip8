@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chip8.Core
 {
@@ -95,7 +91,7 @@ namespace Chip8.Core
 			  0xF0, 0x80, 0x80, 0x80, 0xF0, // C
 			  0xE0, 0x90, 0x90, 0x90, 0xE0, // D
 			  0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
-			  0xF0, 0x80, 0xF0, 0x80, 0x80 // F
+			  0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 			};
 
             Array.Copy(hexChars, 0, _memory, 0x0, hexChars.Length);
@@ -123,7 +119,7 @@ namespace Chip8.Core
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("errored");
+               // System.Diagnostics.Debug.WriteLine("errored");
             }
         }
 

@@ -1,12 +1,8 @@
 ﻿using Chip8.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml;
 
 namespace UWPChip8
 {
@@ -56,8 +52,7 @@ namespace UWPChip8
         #region Methods
 
         /// <summary>
-        /// Loads a file from the file system asynchronously and powers up our CPU. Note that theoretically we should probably do the powerup via a separate call
-        /// but still, there's theory and then there's just getting the job done.
+        /// Loads a file from the file system asynchronously and powers up our CPU.
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
