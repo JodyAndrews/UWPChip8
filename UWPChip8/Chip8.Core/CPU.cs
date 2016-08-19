@@ -119,7 +119,7 @@ namespace Chip8.Core
             }
             catch (Exception e)
             {
-               // System.Diagnostics.Debug.WriteLine("errored");
+                System.Diagnostics.Debug.WriteLine("errored");
             }
         }
 
