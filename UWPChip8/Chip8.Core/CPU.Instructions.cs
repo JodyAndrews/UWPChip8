@@ -125,7 +125,7 @@ namespace Chip8.Core
                             SoundTimer.Set(_v[_opcode.X]);
                             break;
                         case 0x001E: // ADD I, Vx
-                            I.Set(I.GetValue() + _v[_opcode.X]);
+                            I.Set(I.Value + _v[_opcode.X]);
                             break;
                         case 0x0029: // LD F, Vx
                             I.Set(_v[_opcode.X] * 5);
@@ -136,13 +136,13 @@ namespace Chip8.Core
                         case 0x0055: // LD [I], Vx
                             for (byte i = 0; i <= _opcode.X; i++)
                             {
-                                _memory[I.GetValue() + i] = _v[i];
+                                _memory[I.Value + i] = _v[i];
                             }
                             break;
                         case 0x0065: // LD Vx, [I]
                             for (byte i = 0; i <= _opcode.X; i++)
                             {
-                                LD(i, _memory[I.GetValue() + i]);
+                                LD(i, _memory[I.Value + i]);
                             }
                             break;
                     }
@@ -368,73 +368,28 @@ namespace Chip8.Core
         }
 
         /// <summary>
-        /// 'Draw's a pixel to the display buffer
-        /// 
-        /// This is more or less a direct implementation of Alexander Dickson's JS
-        /// Chip8 Emulator
+        /// Writes a pixel to the display buffer and sets the collision flag
         /// </summary>
         /// <param name="ax"></param>
         /// <param name="ay"></param>
-        /// <param name="nibble"></param>
-        void DRW(byte ax, byte ay, byte nibble)
+        /// <param name="height"></param>
+        void DRW(byte ax, byte ay, byte height)
         {
-            _v[0xf] = 0;
-            int sprite = 0x0;
-            int start = I.GetValue();
+            byte pixel;
 
-            for (int y = 0; y < nibble; y++)
+            _v[0xF] = 0;
+            for (int y = 0; y < height; y++)
             {
-                sprite = _memory[start + y];
+                pixel = _memory[I.Value + y];
                 for (int x = 0; x < 8; x++)
                 {
-                    if ((sprite & 0x80) > 0)
+                    if ((pixel & (0x80 >> x)) != 0 && ((_v[ay] + y < Config.ScreenHeight)))
                     {
-                        if (SetPixel((byte)((byte)_v[ax] + (byte)x), (byte)((byte)_v[ay] + y)))
-                        {
-                            _v[0xf] = 1;
-                        }
+                        _displayBuffer[(_v[ax] + x + ((_v[ay] + y) * Config.ScreenWidth))] ^= true;
+                        _v[0xF] = _displayBuffer[_v[ax] + x + ((_v[ay] + y) * Config.ScreenWidth)] ? (byte)0 : (byte)1;
                     }
-                    sprite <<= 1;
                 }
             }
-
-            DrawFlag = true;
-        }
-
-        /// <summary>
-        /// Sets a pixel from the DRW call
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        bool SetPixel(byte x, byte y)
-        {
-            var width = 64;
-            var height = 32;
-            var location = 0;
-
-            if (x > width)
-            {
-                x -= (byte)width;
-            }
-            else if (x < 0)
-            {
-                x += (byte)width;
-            }
-
-            if (y > height)
-            {
-                y -= (byte)height;
-            }
-            else if (y < 0)
-            {
-                y += (byte)height;
-            }
-            location = x + (y * width);
-
-            _displayBuffer[location] ^= true;
-
-            return !Convert.ToBoolean(_displayBuffer[location]);
         }
 
         /// <summary>
@@ -470,7 +425,7 @@ namespace Chip8.Core
 
             for (int i = 3; i > 0; i--)
             {
-                _memory[I.GetValue() + i - 1] = (byte)(number % 10);
+                _memory[I.Value + i - 1] = (byte)(number % 10);
                 number /= 10;
             }
         }

@@ -113,14 +113,7 @@ namespace Chip8.Core
                 _pc += 2;
             }
 
-            try
-            {
-                ExecuteOpCode();
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("errored");
-            }
+            ExecuteOpCode();
         }
 
         public void UpdateTimers()
