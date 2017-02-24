@@ -2,8 +2,6 @@
 
 Working Chip-8 interpreter / emulator running under the Universal Windows Platform with Win2D
 
-The core (Chip8.Core) is a PCL project which can be copied into any solution that supports a PCL compliant project such as Xamarin Forms etc and then just implement your own renderer and input method, in the case of XF for example you could render the cpu's displaybuffer to a Bitmap encoded image and display it as a source to an Image element. Note that input handling is another thing entirely - this would be the bulk of your code although relatively simple enough.
-
 
 #### Description
 
